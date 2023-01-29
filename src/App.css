@@ -5,4 +5,7 @@
   font-size: 1rem;
   background-color: black;
   color: white;
+
+  --primary-clr: #45167a;
+  --primary-clr-hvr: #6421b1;
 }
