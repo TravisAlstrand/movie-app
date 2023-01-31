@@ -5,6 +5,7 @@ import './App.css'
 import { getAllSearch } from './ApiCalls';
 import SearchBar from './Components/SearchBar';
 import MoviesPage from './Components/MoviesPage';
+import MovieDetailPage from './Components/MovieDetailPage';
 
 
 function App() {
@@ -18,7 +19,6 @@ function App() {
 
   async function fetchData() {
     const results = await getAllSearch(searchQuery);
-    console.log(`returned results in App.jsx: ${results}`);
     setMovies(results);
   };
 
@@ -26,8 +26,9 @@ function App() {
     <>
       <SearchBar changeSearchQuery={setSearchQuery} />
       <Routes>
-        <Route exact path='/' element={<Navigate replace to='/home' />} />
-        <Route path='/home' element={<MoviesPage movies={movies} />} />
+        <Route exact path='/' element={<Navigate replace to='/movies' />} />
+        <Route path='/movies' element={<MoviesPage movies={movies} />} />
+        <Route path='/movies/:title' element={<MovieDetailPage />} />
       </Routes>
     </>
   );
