@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SearchBar = ({ changeSearchQuery }) => {
+const SearchBar = ({ changeSearchQuery, resetPageNumber }) => {
 
   const searchBar = useRef('');
   const navigate = useNavigate();
@@ -9,9 +9,10 @@ const SearchBar = ({ changeSearchQuery }) => {
   function handleSearch(e) {
     e.preventDefault();
     const searchText = searchBar.current.value;
+    resetPageNumber(1);
     changeSearchQuery(searchText);
     e.target.reset();
-    navigate('/movies');
+    navigate(`/search/${searchText}`);
   };
 
   return (
