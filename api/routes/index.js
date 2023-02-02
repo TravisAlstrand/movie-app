@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models');
-const { asyncHandler } = require('../middleware.asyncHandler');
-const { authenticateUser } = require('../middleware.authenticateUser');
+const { asyncHandler } = require('../middleware/asyncHandler');
+const { authenticateUser } = require('../middleware/authenticateUser');
 
 router.get('/users', authenticateUser, asyncHandler(async (req, res) => {
   const user = req.currentUser;
@@ -34,3 +34,5 @@ router.post('/users', asyncHandler(async (req, res) => {
     };
   };
 }));
+
+module.exports = router;
