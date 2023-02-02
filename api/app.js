@@ -1,40 +1,55 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
+const Sequelize = require('sequelize');
+const router = require('./routes/index');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-
-app.use(logger('dev'));
+const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(morgan('dev'));
+app.use(cors());
+// app.use('/api', router);
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: 'movie-app.db'
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+sequelize.authenticate()
+  .then(() => {
+    console.log('Connection to database was successful!')
+  }).catch((err) => {
+    console.error('Connection to database was unsuccessful!', err);
+  });
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+app.use((req, res) => {
+  res.status(404).json({
+    message: 'Route Not Found',
+  });
 });
 
-module.exports = app;
+app.use((err, req, res, next) => {
+  if (enableGlobalErrorLogging) {
+    console.error(`Global error handler: ${JSON.stringify(err.stack)}`);
+  }
+
+  res.status(err.status || 500).json({
+    message: err.message,
+    error: {},
+  });
+});
+
+sequelize.sync()
+  .then(() => {
+    console.log("Models were synced successfully.")
+  }).catch(err => {
+    console.log("Model synchronization was unsuccessful")
+  });
+
+app.set('port', process.env.PORT || 5000);
+
+const server = app.listen(app.get('port'), () => {
+  console.log(`Express server is listening on port ${server.address().port}`);
+});
