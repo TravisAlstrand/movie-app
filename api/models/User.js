@@ -1,8 +1,8 @@
 const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcryptjs');
-const { sequelize } = require('.');
 
 module.exports = (sequelize) => {
+
   class User extends Model { }
 
   User.init({
@@ -45,7 +45,7 @@ module.exports = (sequelize) => {
           msg: "Please provide an email address"
         },
         isEmail: {
-          msg: "Please provide a valid email address"
+          msg: "Please provide a valid email"
         }
       }
     },
@@ -59,10 +59,8 @@ module.exports = (sequelize) => {
         notEmpty: {
           msg: "Please provide a password"
         }
-      }
-    },
-    set(val) {
-      if (val) {
+      },
+      set(val) {
         const hashedPassword = bcrypt.hashSync(val, 10);
         this.setDataValue('password', hashedPassword);
       }

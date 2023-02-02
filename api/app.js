@@ -4,13 +4,13 @@ const cors = require('cors');
 const Sequelize = require('sequelize');
 const router = require('./routes/index');
 
+const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
+
 const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
-// app.use('/api', router);
-
-const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
+app.use('/api', router);
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, Navigate, useParams } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 
 import { getAllSearch } from './ApiCalls';
@@ -9,8 +9,6 @@ import MovieDetailPage from './Components/MovieDetailPage';
 
 
 function App() {
-
-  const { page } = useParams();
 
   const [searchQuery, setSearchQuery] = useState('batman');
   const [currentPage, setCurrentPage] = useState(1);
