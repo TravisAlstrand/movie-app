@@ -12,7 +12,7 @@ const SearchBar = ({ changeSearchQuery, resetPageNumber }) => {
     resetPageNumber(1);
     changeSearchQuery(searchText);
     e.target.reset();
-    navigate(`/search/${searchText}`);
+    navigate(`/search/${searchText}/1`);
   };
 
   return (

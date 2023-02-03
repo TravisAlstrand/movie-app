@@ -3,28 +3,34 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import MovieCard from "./MovieCard";
 
-const SearchResults = ({ movies, isLoading, changePage, currentPage, searchQuery }) => {
+const SearchResults = ({ movies, isLoading, changePage, currentPage, searchTerm, changeSearch }) => {
 
   const navigate = useNavigate();
-  const { page } = useParams();
+  const { page, searchQuery } = useParams();
 
   function changeToPrevPage() {
     currentPage--;
     changePage(currentPage);
-    navigate(`/search/${searchQuery}/${currentPage}`);
+    navigate(`/search/${searchTerm}/${currentPage}`);
   }
 
   function changeToNextPage() {
     currentPage++;
     changePage(currentPage);
-    navigate(`/search/${searchQuery}/${currentPage}`);
+    navigate(`/search/${searchTerm}/${currentPage}`);
   }
 
   useEffect(() => {
-    if (parseInt(page) !== currentPage) {
+    console.log(searchQuery);
+    if (parseInt(page) !== currentPage && searchQuery !== searchTerm) {
       changePage(page);
-    }
-  })
+      changeSearch(searchQuery);
+    } else if (parseInt(page) !== currentPage) {
+      changePage(page);
+    } else if (searchQuery !== searchTerm) {
+      changeSearch(searchQuery);
+    };
+  });
 
   return (
     <main>
