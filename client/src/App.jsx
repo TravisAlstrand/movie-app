@@ -8,6 +8,7 @@ import Header from './Components/Header';
 import SearchBar from './Components/SearchBar';
 import SearchResults from './Components/SearchResults';
 import SignUp from './Components/SignUp';
+import SignIn from './Components/SignIn';
 import MovieDetailPage from './Components/MovieDetailPage';
 
 
@@ -40,6 +41,7 @@ function App() {
           <Route path='/search/:searchQuery/:page' element={<SearchResults movies={movies} isLoading={isLoading} changePage={setCurrentPage} currentPage={currentPage} searchTerm={searchQuery} changeSearch={setSearchQuery} />} />
           <Route path='/details/:imdbID' element={<MovieDetailPage />} />
           <Route path='/signup' element={<SignUp />} />
+          <Route path='/signin' element={<SignIn />} />
         </Routes>
       </>
     </UserContext.Provider>
