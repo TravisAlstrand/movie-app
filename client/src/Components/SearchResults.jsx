@@ -34,33 +34,34 @@ const SearchResults = ({ movies, isLoading, changePage, currentPage, searchTerm,
 
   return (
     <main>
-      {
-        (isLoading)
-          ? <h2>Loading...</h2>
-          : (!isLoading && movies)
-            ? (
-              movies.map((movie, index) => {
-                return (
-                  <Link to={`/details/${movie.imdbID}`} key={index}>
-                    <MovieCard key={movie.imdbID} data={movie} />
-                  </Link>
-                );
-              })
-            )
-            : <h2>No Results</h2>
-      }
-      <div>
+      <div className="movies-container">
+        {
+          (isLoading)
+            ? <h2>Loading...</h2>
+            : (!isLoading && movies)
+              ? (
+                movies.map((movie, index) => {
+                  return (
+                    <Link to={`/details/${movie.imdbID}`} key={index} className="movie-card">
+                      <MovieCard key={movie.imdbID} data={movie} />
+                    </Link>
+                  );
+                })
+              )
+              : <h2>No Results</h2>
+        }
+      </div>
+      <div className="prev-next-div">
         {
           (currentPage > 1)
-            ? <button onClick={changeToPrevPage}>Prev</button>
+            ? <button onClick={changeToPrevPage} className="btn">Prev</button>
             : <></>
         }
         {
           (currentPage < 100)
-            ? <button onClick={changeToNextPage}>Next</button>
+            ? <button onClick={changeToNextPage} className="btn">Next</button>
             : <></>
         }
-
       </div>
     </main>
   );

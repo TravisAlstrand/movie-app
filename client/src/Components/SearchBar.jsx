@@ -16,12 +16,12 @@ const SearchBar = ({ changeSearchQuery, resetPageNumber }) => {
   };
 
   return (
-    <>
+    <div className="search-div">
       <form onSubmit={handleSearch}>
-        <input type="text" ref={searchBar} id="searchBar" />
-        <button type="submit">Search</button>
+        <input type="text" ref={searchBar} id="searchBar" className="search-input" />
+        <button type="submit" className="btn">Search</button>
       </form>
-    </>
+    </div>
   );
 
 };

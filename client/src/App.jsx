@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 
 import { getAllSearch } from './ApiCalls';
-import UserContext from './Components/context/UserContext';
+// import UserContext from './Components/context/UserContext';
 import Header from './Components/Header';
 import SearchBar from './Components/SearchBar';
 import SearchResults from './Components/SearchResults';
@@ -32,19 +32,19 @@ function App() {
   };
 
   return (
-    <UserContext.Provider value={{ user }}>
-      <>
-        <Header user={user} />
-        <SearchBar changeSearchQuery={setSearchQuery} resetPageNumber={setCurrentPage} />
-        <Routes>
-          <Route exact path='/' element={<Navigate replace to={`/search/${searchQuery}/${currentPage}`} />} />
-          <Route path='/search/:searchQuery/:page' element={<SearchResults movies={movies} isLoading={isLoading} changePage={setCurrentPage} currentPage={currentPage} searchTerm={searchQuery} changeSearch={setSearchQuery} />} />
-          <Route path='/details/:imdbID' element={<MovieDetailPage />} />
-          <Route path='/signup' element={<SignUp />} />
-          <Route path='/signin' element={<SignIn />} />
-        </Routes>
-      </>
-    </UserContext.Provider>
+    // <UserContext.Provider value={{ user }}>
+    <>
+      <Header user={user} />
+      <SearchBar changeSearchQuery={setSearchQuery} resetPageNumber={setCurrentPage} />
+      <Routes>
+        <Route exact path='/' element={<Navigate replace to={`/search/${searchQuery}/${currentPage}`} />} />
+        <Route path='/search/:searchQuery/:page' element={<SearchResults movies={movies} isLoading={isLoading} changePage={setCurrentPage} currentPage={currentPage} searchTerm={searchQuery} changeSearch={setSearchQuery} />} />
+        <Route path='/details/:imdbID' element={<MovieDetailPage />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/signin' element={<SignIn />} />
+      </Routes>
+    </>
+    // {/* </UserContext.Provider> */ }
   );
 };
 

@@ -1,7 +1,10 @@
 
 const MovieCard = ({ data }) => {
   return (
-    <p>{data.Title}</p>
+    <>
+      <img src={data.Poster} alt={`Poster for ${data.Title}`} className="movie-card-img" />
+      <h3>{data.Title}</h3>
+    </>
   );
 };
 

@@ -5,19 +5,19 @@ const Header = ({ user }) => {
   return (
     <header>
       {!user ? (
-        <>
+        <div className="header-div">
           <Link to='/signin'>
-            <button>Sign In</button>
+            <button className="btn">Sign In</button>
           </Link>
           <Link to='/signup'>
-            <button>Sign Up</button>
+            <button className="btn">Sign Up</button>
           </Link>
-        </>
+        </div>
       ) : (
-        <>
+        <div>
           <button>Watchlist</button>
           <button>Sign Out</button>
-        </>
+        </div>
       )}
     </header>
   );
